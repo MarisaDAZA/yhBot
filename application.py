@@ -14,7 +14,7 @@ def sendMessage(recvId: str, recvType: str, contentType: str, content: dict):
     headers = {'Content-Type': 'application/json'}
     return requests.post('https://chat-go.jwzhd.com/open-apis/v1/bot/send?token=' + token,headers=headers, data=json.dumps(params))
 
-def chat(Id, text, chatType):
+def chat(Id: str, text: str, chatType: str):
     if Id not in messages.keys():
         messages[Id] = []
     messages[Id].append({"role": "user","content": text})
@@ -53,7 +53,7 @@ def yunhu():
         
 
     elif chatId == '375463881':
-        sendMessage('7525795','user','text',{'text': senderNickname + '（群聊消息）：' + text})
+        # sendMessage('7525795','user','text',{'text': senderNickname + '（群聊消息）：' + text})
         chat('375463881', text, 'group')
 
     elif text[0] == '\\':
