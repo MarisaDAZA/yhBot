@@ -2,7 +2,7 @@ from openai import OpenAI
 from datetime import datetime
 import pytz
 
-def qwenChat(messages):
+def qwenChat(messages: list):
     systemMessages=[{
         "role": "system",
         "content": """
