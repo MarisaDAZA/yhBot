@@ -26,13 +26,12 @@ def chat(Id: str, text: str, chatType: str):
     with open("messages.txt", "w") as file:
         json.dump(messages, file, ensure_ascii=False, indent=4)
 
-
 try:
     with open("messages.txt", "r") as file:
         messages = json.load(file)
 except json.decoder.JSONDecodeError:
     messages = {}
-#messages = {}
+# messages = {}
 
 app = Flask(__name__)
 
@@ -56,7 +55,7 @@ def yunhu():
         # sendMessage('7525795','user','text',{'text': senderNickname + '（群聊消息）：' + text})
         chat('375463881', text, 'group')
 
-    elif text[0] == '\\':
+    elif text[0] == '.':
         chat(chatId, text[1:], 'group')
 
     return ''
