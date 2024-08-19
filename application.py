@@ -2,6 +2,7 @@ from flask import Flask, request
 from qwen import qwenChat
 import requests
 import json
+import openai
 
 def sendMessage(recvId: str, recvType: str, contentType: str, content: dict):
     token = '' # Put your token here.
@@ -18,20 +19,24 @@ def chat(Id: str, text: str, chatType: str):
     if Id not in messages.keys():
         messages[Id] = []
     messages[Id].append({"role": "user","content": text})
-    output = qwenChat(messages[Id]).choices[0].message.content
-    sendMessage(Id,chatType,'text',{'text': output})
+    try:
+        output = qwenChat(messages[Id]).choices[0].message.content
+    except openai.BadRequestError:
+        messages[Id] = []
+        return
+    sendMessage(Id,chatType,'markdown',{'text': output})
     messages[Id].append({"role": "assistant","content": output})
     if len(messages[Id]) >= 8:
         del messages[Id][:2]
     with open("messages.txt", "w") as file:
         json.dump(messages, file, ensure_ascii=False, indent=4)
 
-try:
-    with open("messages.txt", "r") as file:
-        messages = json.load(file)
-except json.decoder.JSONDecodeError:
-    messages = {}
-# messages = {}
+# try:
+#     with open("messages.txt", "r") as file:
+#         messages = json.load(file)
+# except json.decoder.JSONDecodeError:
+#     messages = {}
+messages = {}
 
 app = Flask(__name__)
 
@@ -45,14 +50,15 @@ def yunhu():
     senderNickname = data['event']['sender']['senderNickname']
     senderId = data['event']['sender']['senderId']
     chatId = data['event']['chat']['chatId']
+    chatType = data['event']['chat']['chatType']
     
-    if data['event']['chat']['chatType'] == 'bot':
+    if chatType == 'bot':
         # sendMessage('7525795','user','text',{'text': senderNickname + '：' + text})
         chat(senderId, text, 'user')
         
 
     elif chatId == '375463881':
-        # sendMessage('7525795','user','text',{'text': senderNickname + '（群聊消息）：' + text})
+        sendMessage('7525795','user','text',{'text': '[云湖新闻站]' + senderNickname + '：' + text})
         chat('375463881', text, 'group')
 
     elif text[0] == '.':
