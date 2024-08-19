@@ -24,7 +24,11 @@ def chat(Id: str, text: str, chatType: str):
     except openai.BadRequestError:
         messages[Id] = []
         return
-    sendMessage(Id,chatType,'text',{'text': output})
+
+    if '```' in output:
+        sendMessage(Id,chatType,'markdown',{'text': output})
+    else:
+        sendMessage(Id,chatType,'text',{'text': output})
     messages[Id].append({"role": "assistant","content": output})
     if len(messages[Id]) >= 8:
         del messages[Id][:2]
