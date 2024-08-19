@@ -28,8 +28,8 @@ def chat(Id: str, text: str, chatType: str):
     messages[Id].append({"role": "assistant","content": output})
     if len(messages[Id]) >= 8:
         del messages[Id][:2]
-    with open("messages.txt", "w") as file:
-        json.dump(messages, file, ensure_ascii=False, indent=4)
+    # with open("messages.txt", "w") as file:
+    #     json.dump(messages, file, ensure_ascii=False, indent=4)
 
 # try:
 #     with open("messages.txt", "r") as file:
