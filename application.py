@@ -59,11 +59,6 @@ def yunhu():
     if chatType == 'bot':
         # sendMessage('7525795','user','text',{'text': senderNickname + '：' + text})
         chat(senderId, text, 'user')
-        
-
-    elif chatId == '375463881':
-        sendMessage('7525795','user','text',{'text': '[云湖新闻站]' + senderNickname + '：' + text})
-        chat('375463881', text, 'group')
 
     elif text[0] == '.':
         chat(chatId, text[1:], 'group')
