@@ -1,0 +1,2 @@
+62.244.190.9 - - [22/Dec/2024:22:59:00 +0100] "GET / HTTP/1.1" 404 207 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1.1 Safari/605.1.15"
+62.244.190.9 - - [22/Dec/2024:22:59:00 +0100] "GET /favicon.ico HTTP/1.1" 404 207 "http://flandre.serv00.net/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1.1 Safari/605.1.15"
